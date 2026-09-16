@@ -14,5 +14,5 @@ export const register = () =>
             password: credentials.password,
         });
 
-        UseScenarioContext.as(actor).add(credentials, { actor: (actor as Actor).name });
+        UseScenarioContext.as(actor).add(credentials, { actor: actor.name });
     });
