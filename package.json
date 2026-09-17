@@ -4,19 +4,19 @@
   "private": true,
   "description": "Example acceptance tests written with Serenity/JS and serenity-scenario-context.",
   "scripts": {
-    "test": "jest",
+    "test": "mocha",
     "typecheck": "tsc --noEmit",
     "prepare": "husky"
   },
   "devDependencies": {
     "@serenity-js/assertions": "^3.48.0",
     "@serenity-js/core": "^3.48.0",
-    "@types/jest": "^30.0.0",
+    "@types/mocha": "^10.0.10",
     "@types/node": "^26.5.1",
     "husky": "^9.1.7",
-    "jest": "^30.5.1",
+    "mocha": "^12.0.1",
     "serenity-scenario-context": "^1.0.0",
-    "ts-jest": "^29.4.12",
+    "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }
 }
