@@ -11,7 +11,9 @@
   },
   "devDependencies": {
     "@serenity-js/assertions": "^3.48.0",
+    "@serenity-js/console-reporter": "^3.48.0",
     "@serenity-js/core": "^3.48.0",
+    "@serenity-js/mocha": "^3.48.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "^26.5.1",
     "husky": "^9.1.7",

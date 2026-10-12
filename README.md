@@ -22,6 +22,9 @@ scenario state.
     interactions (setting up an account).
   - [`cast.ts`](acceptance-tests/cast.ts) — wires up each actor with the
     abilities to use the support-desk API and a shared `ScenarioContext`.
+  - [`serenity.config.ts`](acceptance-tests/serenity.config.ts) — configures
+    Serenity/JS for Mocha and engages a fresh cast before every test, so
+    specs just call `actorCalled('Name')`.
   - `*.spec.ts` — the scenarios themselves.
 
 ## Why `serenity-scenario-context`?

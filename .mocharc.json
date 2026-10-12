@@ -1,5 +1,6 @@
 {
-    "require": "ts-node/register",
+    "require": ["ts-node/register", "acceptance-tests/serenity.config.ts"],
+    "reporter": "@serenity-js/mocha",
     "extension": ["ts"],
     "spec": "acceptance-tests/**/*.spec.ts",
     "timeout": 5000

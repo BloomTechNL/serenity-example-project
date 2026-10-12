@@ -5,14 +5,12 @@ import { raiseTicket } from './interactions/raise-ticket';
 import { resolveTicket } from './interactions/resolve-ticket';
 import { ticket } from './questions/ticket';
 import { setUp } from './tasks/set-up';
-import { SupportDeskCast } from './cast';
 
 describe('A support agent using the scenario context', () => {
     let chidi: Actor;
 
     beforeEach(() => {
-        const cast = new SupportDeskCast();
-        chidi = cast.prepare(actorCalled('Chidi'));
+        chidi = actorCalled('Chidi');
     });
 
     it('resolves a ticket by label, even when a later one is in the spotlight', async () => {

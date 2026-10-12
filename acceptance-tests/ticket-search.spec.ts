@@ -4,14 +4,12 @@ import { Ensure, equals } from '@serenity-js/assertions';
 import { raiseTicket } from './interactions/raise-ticket';
 import { numberOfTicketsFound } from './questions/number-of-tickets-found';
 import { setUp } from './tasks/set-up';
-import { SupportDeskCast } from './cast';
 
 describe('A support agent searching for tickets by subject', () => {
     let morgan: Actor;
 
     beforeEach(() => {
-        const cast = new SupportDeskCast();
-        morgan = cast.prepare(actorCalled('Morgan'));
+        morgan = actorCalled('Morgan');
     });
 
     it('finds no tickets when none have been raised', async () => {

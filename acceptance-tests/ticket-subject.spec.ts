@@ -1,18 +1,16 @@
-import {Actor, actorCalled} from '@serenity-js/core';
+import { Actor, actorCalled } from '@serenity-js/core';
 import { Ensure, equals, property } from '@serenity-js/assertions';
 
 import { changeTicketSubject } from './interactions/change-ticket-subject';
 import { raiseTicket } from './interactions/raise-ticket';
 import { expectedTicket, ticket } from './questions/ticket';
 import { setUp } from './tasks/set-up';
-import { SupportDeskCast } from './cast';
 
 describe('A support agent using the scenario context', () => {
     let priya: Actor;
 
     beforeEach(() => {
-        const cast = new SupportDeskCast();
-        priya = cast.prepare(actorCalled('Priya'));
+        priya = actorCalled('Priya');
     });
 
     it('remembers the subject of a raised ticket, matching what the system under test has on record', async () => {
