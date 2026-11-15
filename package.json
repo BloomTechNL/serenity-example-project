@@ -7,6 +7,7 @@
   "scripts": {
     "test": "mocha",
     "typecheck": "tsc --noEmit",
+    "lint": "eslint",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -16,10 +17,13 @@
     "@serenity-js/mocha": "^3.48.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "^26.5.1",
+    "eslint": "^10.15.0",
     "husky": "^9.1.7",
     "mocha": "^11.8.0",
     "serenity-scenario-context": "^1.2.0",
+    "test-phase": "^0.1.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.72.2"
   }
 }

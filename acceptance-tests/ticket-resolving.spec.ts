@@ -1,5 +1,6 @@
 import { Actor, actorCalled } from '@serenity-js/core';
 import { Ensure, equals, property } from '@serenity-js/assertions';
+import { Given, Then, When } from 'test-phase';
 
 import { raiseTicket } from './interactions/raise-ticket';
 import { resolveTicket } from './interactions/resolve-ticket';
@@ -13,47 +14,53 @@ describe('A support agent using the scenario context', () => {
         chidi = actorCalled('Chidi');
     });
 
-    it('resolves a ticket by label, even when a later one is in the spotlight', async () => {
-        await chidi.attemptsTo(
+    it('raises a ticket that starts out open', async () => {
+        await Given(() => chidi.attemptsTo(
             setUp(),
+        ));
 
+        await When(() => chidi.attemptsTo(
             raiseTicket(),
-        );
+        ));
 
-        await chidi.attemptsTo(
-            Ensure.that(ticket().status, equals('open'))
-        );
+        await Then(() => chidi.attemptsTo(
+            Ensure.that(ticket().status, equals('open')),
+        ));
     });
 
     it('resolves a ticket by label, even when a later one is in the spotlight', async () => {
-        await chidi.attemptsTo(
+        await Given(() => chidi.attemptsTo(
             setUp(),
 
             raiseTicket({ label: 'billing' }),
             raiseTicket({ label: 'login' }),
+        ));
 
+        await When(() => chidi.attemptsTo(
             resolveTicket('billing'),
-        );
+        ));
 
-        await chidi.attemptsTo(
+        await Then(() => chidi.attemptsTo(
             Ensure.that(ticket('billing'), property('status', equals('resolved'))),
             Ensure.that(ticket('login'), property('status', equals('open'))),
-        );
+        ));
     });
 
     it('resolves a ticket by label, leaving an earlier one untouched', async () => {
-        await chidi.attemptsTo(
+        await Given(() => chidi.attemptsTo(
             setUp(),
 
             raiseTicket({ label: 'first-ticket' }),
             raiseTicket({}),
+        ));
 
+        await When(() => chidi.attemptsTo(
             resolveTicket(),
-        );
+        ));
 
-        await chidi.attemptsTo(
+        await Then(() => chidi.attemptsTo(
             Ensure.that(ticket(), property('status', equals('resolved'))),
             Ensure.that(ticket('first-ticket'), property('status', equals('open'))),
-        );
+        ));
     });
 });

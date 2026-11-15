@@ -50,11 +50,34 @@ and [`acceptance-tests/ticket-subject.spec.ts`](acceptance-tests/ticket-subject.
 for the full scenarios, and the [package README](https://www.npmjs.com/package/serenity-scenario-context)
 for more on the API.
 
+## Given, When, Then with `test-phase`
+
+Every scenario is split into phases with
+[`test-phase`](https://github.com/BloomTechNL/test-phase):
+
+```ts
+await Given(() => chidi.attemptsTo(setUp(), raiseTicket({ label: 'billing' })));
+await When(() => chidi.attemptsTo(resolveTicket('billing')));
+await Then(() => chidi.attemptsTo(Ensure.that(ticket('billing'), property('status', equals('resolved')))));
+```
+
+The phase is used in two places:
+
+- **At runtime** — [`UseSupportDeskApi`](acceptance-tests/use-support-desk-api.ts)
+  checks `inThenPhase()` and refuses `POST` requests there, so a `Then`
+  can only observe the system, never change it. The phase is reset after
+  each test in [`serenity.config.ts`](acceptance-tests/serenity.config.ts).
+- **At lint time** — [`eslint.config.mjs`](eslint.config.mjs) enables the
+  `test-phase` ESLint rules: no `Ensure` inside `Given`/`When`, and at most
+  one `Given`, `When` and `Then` per test.
+
 ## Running the tests
 
 ```bash
 npm install
+npm run lint
 npm test
 ```
 
-A pre-commit hook (via Husky) runs the test suite before every commit.
+A pre-commit hook (via Husky) runs the type check, the linter and the test
+suite before every commit.

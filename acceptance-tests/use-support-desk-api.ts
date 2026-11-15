@@ -1,4 +1,5 @@
-import { Ability } from '@serenity-js/core';
+import { Ability, LogicError } from '@serenity-js/core';
+import { inThenPhase } from 'test-phase';
 
 import { ErrorRepresentation, HttpApi, HttpResponse } from '../ticketing-system/index';
 
@@ -23,6 +24,10 @@ export class UseSupportDeskApi extends Ability {
     }
 
     post<ResponseBody>(path: string, body?: unknown, expectedStatus = 201): ResponseBody {
+        if (inThenPhase()) {
+            throw new LogicError(`POST ${ path } changes the system under test, which is not allowed in the Then phase`);
+        }
+
         return this.unwrap(this.api.post<ResponseBody>(path, body, this.headers()), expectedStatus, `POST ${ path }`);
     }
 

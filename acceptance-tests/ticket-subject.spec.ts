@@ -1,5 +1,6 @@
 import { Actor, actorCalled } from '@serenity-js/core';
 import { Ensure, equals, property } from '@serenity-js/assertions';
+import { Given, Then, When } from 'test-phase';
 
 import { changeTicketSubject } from './interactions/change-ticket-subject';
 import { raiseTicket } from './interactions/raise-ticket';
@@ -14,50 +15,56 @@ describe('A support agent using the scenario context', () => {
     });
 
     it('remembers the subject of a raised ticket, matching what the system under test has on record', async () => {
-        await priya.attemptsTo(
+        await Given(() => priya.attemptsTo(
             setUp(),
+        ));
 
+        await When(() => priya.attemptsTo(
             raiseTicket(),
-        );
+        ));
 
-        await priya.attemptsTo(
+        await Then(() => priya.attemptsTo(
             Ensure.that(
                 ticket().subject,
                 equals(expectedTicket().subject),
             ),
-        );
+        ));
     });
 
     it('remembers the new subject of a ticket whose subject was changed, matching what the system under test has on record', async () => {
-        await priya.attemptsTo(
+        await Given(() => priya.attemptsTo(
             setUp(),
 
             raiseTicket(),
+        ));
 
+        await When(() => priya.attemptsTo(
             changeTicketSubject('A new, more descriptive subject'),
-        );
+        ));
 
-        await priya.attemptsTo(
+        await Then(() => priya.attemptsTo(
             Ensure.that(
                 ticket().subject,
                 equals('A new, more descriptive subject'),
             ),
-        );
+        ));
     });
 
     it('changes the subject of a ticket by label, leaving another one untouched', async () => {
-        await priya.attemptsTo(
+        await Given(() => priya.attemptsTo(
             setUp(),
 
             raiseTicket({ label: 'billing' }),
             raiseTicket({ label: 'login' }),
+        ));
 
+        await When(() => priya.attemptsTo(
             changeTicketSubject('Billing query needs a closer look', 'billing'),
-        );
+        ));
 
-        await priya.attemptsTo(
+        await Then(() => priya.attemptsTo(
             Ensure.that(ticket('billing'), property('subject', equals('Billing query needs a closer look'))),
             Ensure.that(ticket('login').subject, equals(expectedTicket('login').subject)),
-        );
+        ));
     });
 });

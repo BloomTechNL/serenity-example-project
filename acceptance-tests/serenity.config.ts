@@ -1,4 +1,5 @@
 import { configure, engage } from '@serenity-js/core';
+import { resetPhase } from 'test-phase';
 
 import { SupportDeskCast } from './cast';
 
@@ -11,5 +12,8 @@ configure({
 export const mochaHooks = {
     beforeEach(): void {
         engage(new SupportDeskCast());
+    },
+    afterEach(): void {
+        resetPhase();
     },
 };
