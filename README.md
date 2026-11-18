@@ -19,7 +19,7 @@ scenario state.
     about the system (the ticket in the spotlight, how many tickets match a
     search).
   - [`tasks/`](acceptance-tests/tasks) — higher-level tasks composed from
-    interactions (signing up: registering and logging in).
+    interactions (signing up, triaging a ticket).
   - [`processes/`](acceptance-tests/processes) — processes performed by
     several actors, each playing a role (a customer and an agent handing
     over a ticket).
