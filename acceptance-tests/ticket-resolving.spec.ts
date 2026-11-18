@@ -5,7 +5,7 @@ import { Given, Then, When } from 'test-phase';
 import { raiseTicket } from './interactions/raise-ticket';
 import { resolveTicket } from './interactions/resolve-ticket';
 import { ticket } from './questions/ticket';
-import { setUp } from './tasks/set-up';
+import { signUp } from './tasks/sign-up';
 
 describe('A support agent using the scenario context', () => {
     let chidi: Actor;
@@ -16,7 +16,7 @@ describe('A support agent using the scenario context', () => {
 
     it('raises a ticket that starts out open', async () => {
         await Given(() => chidi.attemptsTo(
-            setUp(),
+            signUp(),
         ));
 
         await When(() => chidi.attemptsTo(
@@ -30,7 +30,7 @@ describe('A support agent using the scenario context', () => {
 
     it('resolves a ticket by label, even when a later one is in the spotlight', async () => {
         await Given(() => chidi.attemptsTo(
-            setUp(),
+            signUp(),
 
             raiseTicket({ label: 'billing' }),
             raiseTicket({ label: 'login' }),
@@ -48,7 +48,7 @@ describe('A support agent using the scenario context', () => {
 
     it('resolves a ticket by label, leaving an earlier one untouched', async () => {
         await Given(() => chidi.attemptsTo(
-            setUp(),
+            signUp(),
 
             raiseTicket({ label: 'first-ticket' }),
             raiseTicket({}),

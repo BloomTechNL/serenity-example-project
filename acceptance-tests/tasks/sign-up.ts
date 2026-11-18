@@ -3,8 +3,8 @@ import { Task } from '@serenity-js/core';
 import { login } from '../interactions/login';
 import { register } from '../interactions/register';
 
-export const setUp = () =>
-    Task.where('#actor sets up an account',
+export const signUp = () =>
+    Task.where('#actor signs up',
         register(),
         login(),
     );

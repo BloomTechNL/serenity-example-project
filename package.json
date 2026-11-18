@@ -20,6 +20,7 @@
     "eslint": "^10.15.0",
     "husky": "^9.1.7",
     "mocha": "^11.8.0",
+    "serenity-process": "^0.1.0",
     "serenity-scenario-context": "^1.2.0",
     "test-phase": "^0.1.0",
     "ts-node": "^10.9.2",

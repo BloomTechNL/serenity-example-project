@@ -5,7 +5,7 @@ import { Given, Then, When } from 'test-phase';
 import { changeTicketSubject } from './interactions/change-ticket-subject';
 import { raiseTicket } from './interactions/raise-ticket';
 import { expectedTicket, ticket } from './questions/ticket';
-import { setUp } from './tasks/set-up';
+import { signUp } from './tasks/sign-up';
 
 describe('A support agent using the scenario context', () => {
     let priya: Actor;
@@ -16,7 +16,7 @@ describe('A support agent using the scenario context', () => {
 
     it('remembers the subject of a raised ticket, matching what the system under test has on record', async () => {
         await Given(() => priya.attemptsTo(
-            setUp(),
+            signUp(),
         ));
 
         await When(() => priya.attemptsTo(
@@ -33,7 +33,7 @@ describe('A support agent using the scenario context', () => {
 
     it('remembers the new subject of a ticket whose subject was changed, matching what the system under test has on record', async () => {
         await Given(() => priya.attemptsTo(
-            setUp(),
+            signUp(),
 
             raiseTicket(),
         ));
@@ -52,7 +52,7 @@ describe('A support agent using the scenario context', () => {
 
     it('changes the subject of a ticket by label, leaving another one untouched', async () => {
         await Given(() => priya.attemptsTo(
-            setUp(),
+            signUp(),
 
             raiseTicket({ label: 'billing' }),
             raiseTicket({ label: 'login' }),

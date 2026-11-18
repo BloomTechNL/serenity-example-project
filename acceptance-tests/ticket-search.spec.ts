@@ -4,7 +4,7 @@ import { Given, Then, When } from 'test-phase';
 
 import { raiseTicket } from './interactions/raise-ticket';
 import { numberOfTicketsFound } from './questions/number-of-tickets-found';
-import { setUp } from './tasks/set-up';
+import { signUp } from './tasks/sign-up';
 
 describe('A support agent searching for tickets by subject', () => {
     let morgan: Actor;
@@ -15,7 +15,7 @@ describe('A support agent searching for tickets by subject', () => {
 
     it('finds no tickets when none have been raised', async () => {
         await Given(() => morgan.attemptsTo(
-            setUp(),
+            signUp(),
         ));
 
         await Then(() => morgan.attemptsTo(
@@ -28,7 +28,7 @@ describe('A support agent searching for tickets by subject', () => {
 
     it('finds a raised ticket by searching for part of its subject', async () => {
         await Given(() => morgan.attemptsTo(
-            setUp(),
+            signUp(),
         ));
 
         await When(() => morgan.attemptsTo(
@@ -45,7 +45,7 @@ describe('A support agent searching for tickets by subject', () => {
 
     it('tells apart tickets that have different subjects', async () => {
         await Given(() => morgan.attemptsTo(
-            setUp(),
+            signUp(),
         ));
 
         await When(() => morgan.attemptsTo(
@@ -61,7 +61,7 @@ describe('A support agent searching for tickets by subject', () => {
 
     it('counts every ticket matching the same search term', async () => {
         await Given(() => morgan.attemptsTo(
-            setUp(),
+            signUp(),
         ));
 
         await When(() => morgan.attemptsTo(

@@ -19,7 +19,10 @@ scenario state.
     about the system (the ticket in the spotlight, how many tickets match a
     search).
   - [`tasks/`](acceptance-tests/tasks) — higher-level tasks composed from
-    interactions (setting up an account).
+    interactions (signing up: registering and logging in).
+  - [`processes/`](acceptance-tests/processes) — processes performed by
+    several actors, each playing a role (a customer and an agent handing
+    over a ticket).
   - [`cast.ts`](acceptance-tests/cast.ts) — wires up each actor with the
     abilities to use the support-desk API and a shared `ScenarioContext`.
   - [`serenity.config.ts`](acceptance-tests/serenity.config.ts) — configures
@@ -56,7 +59,7 @@ Every scenario is split into phases with
 [`test-phase`](https://github.com/BloomTechNL/test-phase):
 
 ```ts
-await Given(() => chidi.attemptsTo(setUp(), raiseTicket({ label: 'billing' })));
+await Given(() => chidi.attemptsTo(signUp(), raiseTicket({ label: 'billing' })));
 await When(() => chidi.attemptsTo(resolveTicket('billing')));
 await Then(() => chidi.attemptsTo(Ensure.that(ticket('billing'), property('status', equals('resolved')))));
 ```
@@ -70,6 +73,30 @@ The phase is used in two places:
 - **At lint time** — [`eslint.config.mjs`](eslint.config.mjs) enables the
   `test-phase` ESLint rules: no `Ensure` inside `Given`/`When`, and at most
   one `Given`, `When` and `Then` per test.
+
+## Several actors with `serenity-process`
+
+Some scenarios need more than one actor: a customer raises a ticket and a
+support agent resolves it. [`serenity-process`](https://github.com/BloomTechNL/serenity-process)
+offers a `Process`: like a `Task`, but each step is played by a *role*. The
+actors are bound only when the process runs, so the same process can be
+reused with the roles swapped:
+
+```ts
+const ticketHandover = () =>
+    Process.where('#customer raises a ticket that #agent resolves',
+        step('customer', raiseTicket()),
+        step('agent', resolveTicket()),
+    );
+
+await When(ticketHandover().with({ customer: chidi, agent: priya }));
+```
+
+Because every actor in the cast shares the same `ScenarioContext`, the
+agent's `resolveTicket()` finds the ticket the customer just raised. A
+process can also nest another one with `subprocess(child, { childRole: 'parentRole' })`.
+See [`acceptance-tests/processes/`](acceptance-tests/processes) and
+[`acceptance-tests/ticket-handover.spec.ts`](acceptance-tests/ticket-handover.spec.ts).
 
 ## Running the tests
 
