@@ -1,5 +1,5 @@
 import tseslint from 'typescript-eslint';
-import testPhase from 'test-phase/eslint-plugin';
+import testPhase from '@bloom-group/test-phase/eslint-plugin';
 
 export default [
     {

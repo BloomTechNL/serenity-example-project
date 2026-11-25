@@ -1,4 +1,4 @@
-import { Process, step } from 'serenity-process';
+import { Process, step } from '@bloom-group/serenity-process';
 
 import { raiseTicket, TicketPriority } from '../interactions/raise-ticket';
 import { resolveTicket } from '../interactions/resolve-ticket';

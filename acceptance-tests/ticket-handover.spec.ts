@@ -1,6 +1,6 @@
 import { Actor, actorCalled } from '@serenity-js/core';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { Given, Then, When } from 'test-phase';
+import { Given, Then, When } from '@bloom-group/test-phase';
 import { beforeEach, describe, it } from 'vitest';
 
 import { everyoneSignsUp } from './processes/everyone-signs-up';

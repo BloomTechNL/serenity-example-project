@@ -1,6 +1,6 @@
 import { Actor, Cast } from '@serenity-js/core';
 
-import { ScenarioContext, UseScenarioContext } from 'serenity-scenario-context';
+import { ScenarioContext, UseScenarioContext } from '@bloom-group/serenity-scenario-context';
 import { SupportDeskApi } from '../ticketing-system/index';
 import { TestIdentificationContext } from './test-identification-context';
 import { UseSupportDeskApi } from './use-support-desk-api';

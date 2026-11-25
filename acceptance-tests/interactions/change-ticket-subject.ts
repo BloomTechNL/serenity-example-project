@@ -1,6 +1,6 @@
 import { Interaction } from '@serenity-js/core';
 
-import { Qualifiers, UseScenarioContext } from 'serenity-scenario-context';
+import { Qualifiers, UseScenarioContext } from '@bloom-group/serenity-scenario-context';
 import { TicketRepresentation } from '../../ticketing-system/index';
 import { UseSupportDeskApi } from '../use-support-desk-api';
 

@@ -2,7 +2,7 @@
 
 An example project showing how to write acceptance tests with
 [Serenity/JS](https://serenity-js.org/) (the Screenplay Pattern) combined
-with [`serenity-scenario-context`](https://www.npmjs.com/package/serenity-scenario-context),
+with [`@bloom-group/serenity-scenario-context`](https://www.npmjs.com/package/@bloom-group/serenity-scenario-context),
 an Ability that gives actors a type-safe, qualifier-aware place to remember
 scenario state.
 
@@ -50,13 +50,13 @@ resolveTicket('billing');
 
 See [`acceptance-tests/ticket-resolving.spec.ts`](acceptance-tests/ticket-resolving.spec.ts)
 and [`acceptance-tests/ticket-subject.spec.ts`](acceptance-tests/ticket-subject.spec.ts)
-for the full scenarios, and the [package README](https://www.npmjs.com/package/serenity-scenario-context)
+for the full scenarios, and the [package README](https://www.npmjs.com/package/@bloom-group/serenity-scenario-context)
 for more on the API.
 
 ## Given, When, Then with `test-phase`
 
 Every scenario is split into phases with
-[`test-phase`](https://github.com/BloomTechNL/test-phase):
+[`@bloom-group/test-phase`](https://github.com/BloomTechNL/test-phase):
 
 ```ts
 await Given(() => chidi.attemptsTo(signUp(), raiseTicket({ label: 'billing' })));
@@ -77,7 +77,7 @@ The phase is used in two places:
 ## Several actors with `serenity-process`
 
 Some scenarios need more than one actor: a customer raises a ticket and a
-support agent resolves it. [`serenity-process`](https://github.com/BloomTechNL/serenity-process)
+support agent resolves it. [`@bloom-group/serenity-process`](https://github.com/BloomTechNL/serenity-process)
 offers a `Process`: like a `Task`, but each step is played by a *role*. The
 actors are bound only when the process runs, so the same process can be
 reused with the roles swapped:

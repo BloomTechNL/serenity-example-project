@@ -1,5 +1,5 @@
 import { Ability, LogicError } from '@serenity-js/core';
-import { inThenPhase } from 'test-phase';
+import { inThenPhase } from '@bloom-group/test-phase';
 
 import { ErrorRepresentation, HttpApi, HttpResponse } from '../ticketing-system/index';
 

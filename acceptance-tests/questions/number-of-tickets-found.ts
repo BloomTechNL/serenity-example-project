@@ -1,6 +1,6 @@
 import { Answerable, Question } from '@serenity-js/core';
 
-import { UseScenarioContext } from 'serenity-scenario-context';
+import { UseScenarioContext } from '@bloom-group/serenity-scenario-context';
 import { TicketRepresentation } from '../../ticketing-system/index';
 import { TestIdentificationContext } from '../test-identification-context';
 import { UseSupportDeskApi } from '../use-support-desk-api';

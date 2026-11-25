@@ -1,6 +1,6 @@
 import { Actor, Interaction } from '@serenity-js/core';
 
-import { UseScenarioContext } from 'serenity-scenario-context';
+import { UseScenarioContext } from '@bloom-group/serenity-scenario-context';
 import { LoginCredentialContext } from './login-credential-context';
 import { AccountRepresentation } from '../../ticketing-system/index';
 import { UseSupportDeskApi } from '../use-support-desk-api';
