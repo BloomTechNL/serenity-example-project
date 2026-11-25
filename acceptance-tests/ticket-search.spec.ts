@@ -1,6 +1,7 @@
 import { Actor, actorCalled } from '@serenity-js/core';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { Given, Then, When } from 'test-phase';
+import { beforeEach, describe, it } from 'vitest';
 
 import { raiseTicket } from './interactions/raise-ticket';
 import { numberOfTicketsFound } from './questions/number-of-tickets-found';

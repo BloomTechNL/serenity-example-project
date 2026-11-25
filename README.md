@@ -25,8 +25,8 @@ scenario state.
     over a ticket).
   - [`cast.ts`](acceptance-tests/cast.ts) — wires up each actor with the
     abilities to use the support-desk API and a shared `ScenarioContext`.
-  - [`serenity.config.ts`](acceptance-tests/serenity.config.ts) — configures
-    Serenity/JS for Mocha and engages a fresh cast before every test, so
+  - [`serenity.setup.ts`](acceptance-tests/serenity.setup.ts) — a Vitest
+    setup file that engages a fresh cast before every test, so
     specs just call `actorCalled('Name')`.
   - `*.spec.ts` — the scenarios themselves.
 
@@ -69,7 +69,7 @@ The phase is used in two places:
 - **At runtime** — [`UseSupportDeskApi`](acceptance-tests/use-support-desk-api.ts)
   checks `inThenPhase()` and refuses `POST` requests there, so a `Then`
   can only observe the system, never change it. The phase is reset after
-  each test in [`serenity.config.ts`](acceptance-tests/serenity.config.ts).
+  each test in [`serenity.setup.ts`](acceptance-tests/serenity.setup.ts).
 - **At lint time** — [`eslint.config.mjs`](eslint.config.mjs) enables the
   `test-phase` ESLint rules: no `Ensure` inside `Given`/`When`, and at most
   one `Given`, `When` and `Then` per test.
@@ -97,6 +97,22 @@ agent's `resolveTicket()` finds the ticket the customer just raised. A
 process can also nest another one with `subprocess(child, { childRole: 'parentRole' })`.
 See [`acceptance-tests/processes/`](acceptance-tests/processes) and
 [`acceptance-tests/ticket-handover.spec.ts`](acceptance-tests/ticket-handover.spec.ts).
+
+## Running on Vitest with `serenity-vitest`
+
+The scenarios run on [Vitest](https://vitest.dev), with
+[`@bloom-group/serenity-vitest`](https://github.com/BloomTechNL/serenity-vitest)
+bringing back Serenity/JS reporting. [`vitest.config.mts`](vitest.config.mts)
+registers two parts:
+
+- **`@bloom-group/serenity-vitest/setup`** — a setup file that runs in each
+  Vitest worker, starts and finishes a Serenity/JS scene around every test and
+  collects the actors' activities. It comes before our own
+  [`serenity.setup.ts`](acceptance-tests/serenity.setup.ts).
+- **the `@bloom-group/serenity-vitest` reporter** — runs in the main process
+  and hands every scenario, with its activities, to the stage crew (here the
+  `@serenity-js/console-reporter`). Reporting crew members belong in its
+  `crew` option, not in the worker-side setup.
 
 ## Running the tests
 
